@@ -8,6 +8,9 @@ app = FastAPI(title="MLOps Microservice")
 class Item(BaseModel):
     text: str
 
+class SentBody(BaseModel):
+    text: str
+
 # Lazy model load (placeholder: replace with your trained pipeline)
 MODEL_PATH = os.getenv("MODEL_PATH", "artifacts/model.joblib")
 _model = None
@@ -30,3 +33,8 @@ def predict(item: Item):
     # For text models, ensure the joblib pipeline includes vectorizer/tokenizer
     pred = model.predict([item.text])[0]
     return {"prediction": str(pred)}
+
+@app.post("/sentiment")
+def predict_sentiment(body: SentBody):
+    out = sa(body.text)
+    return out[0]

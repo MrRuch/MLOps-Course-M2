@@ -18,14 +18,15 @@ mlops_2day_course/
 ```
 
 ## Quickstart
-```bash
-# create & activate env
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r project/ml_microservice/requirements.txt
 
-# run microservice locally
-make -C project/ml_microservice run
+This project aims to test some models provided by Hugging Face, starting with Sentiment Analysis.
 
-# run tests
-make -C project/ml_microservice test
-```
+👉 Trained model available here: [MrRichu/distilbert-imdb-sentiment-analysis](https://huggingface.co/MrRichu/distilbert-imdb-sentiment-analysis)
+
+## Usage
+
+```python
+from transformers import pipeline
+
+clf = pipeline("sentiment-analysis", model="MrRichu/distilbert-imdb-sentiment-analysis")
+print(clf("I really enjoyed this movie!"))
